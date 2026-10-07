@@ -1,5 +1,20 @@
 const progressBar = document.getElementById("progressBar");
 const badge = document.getElementById("badge");
+const fullscreenButton = document.getElementById("fullscreenButton");
+
+fullscreenButton.addEventListener("click", async () => {
+    if (document.fullscreenElement) {
+        await document.exitFullscreen();
+    } else {
+        await document.documentElement.requestFullscreen();
+    }
+});
+
+document.addEventListener("fullscreenchange", () => {
+    const isFullscreen = Boolean(document.fullscreenElement);
+    fullscreenButton.textContent = isFullscreen ? "Exit fullscreen" : "Fullscreen";
+    fullscreenButton.setAttribute("aria-label", isFullscreen ? "Exit fullscreen" : "Enter fullscreen");
+});
 
 function updateProgress() {
     const scrollTop = window.scrollY
