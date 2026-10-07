@@ -2,6 +2,7 @@ const progressBar = document.getElementById("progressBar");
 const badge = document.getElementById("badge");
 const fullscreenButton = document.getElementById("fullscreenButton");
 const themeButtons = document.querySelectorAll("[data-theme-choice]");
+const fontChoice = document.getElementById("fontChoice");
 const writingCanvas = document.getElementById("writingCanvas");
 const penColor = document.getElementById("penColor");
 const penSize = document.getElementById("penSize");
@@ -174,12 +175,34 @@ try {
 } catch {
     savedTheme = null;
 }
-const validThemes = ["light", "green", "yellow", "sepia"];
+const validThemes = ["light", "green", "yellow", "sepia", "dark"];
 setReadingTheme(validThemes.includes(savedTheme) ? savedTheme : "light");
 
 themeButtons.forEach((button) => {
     button.addEventListener("click", () => setReadingTheme(button.dataset.themeChoice));
 });
+
+const validFonts = ["georgia", "arial", "verdana", "trebuchet", "monospace"];
+let savedFont;
+try {
+    savedFont = localStorage.getItem("readingFont");
+} catch {
+    savedFont = null;
+}
+
+function setReadingFont(font) {
+    const selectedFont = validFonts.includes(font) ? font : "georgia";
+    document.body.dataset.font = selectedFont;
+    fontChoice.value = selectedFont;
+    try {
+        localStorage.setItem("readingFont", selectedFont);
+    } catch {
+        // Font selection still works when storage is unavailable.
+    }
+}
+
+setReadingFont(savedFont);
+fontChoice.addEventListener("change", () => setReadingFont(fontChoice.value));
 
 fullscreenButton.addEventListener("click", async () => {
     if (document.fullscreenElement) {
