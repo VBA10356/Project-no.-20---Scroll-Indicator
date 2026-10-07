@@ -69,7 +69,7 @@ body[data-theme="sepia"] {
 }
 
 body[data-theme="dark"] {
-    --page-background: #202421;
+    --page-background: #101110;
     --page-text: #d5dbd5;
     --heading-color: #f0f3ee;
     --muted-text: #aeb9ae;
